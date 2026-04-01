@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest]
 
     steps:
     - name: 코드 가져오기
@@ -23,14 +23,6 @@ jobs:
       run: |
         pip install pyinstaller
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-    # -----------------------------
-    # Windows EXE
-    # -----------------------------
-    - name: Windows EXE 빌드
-      if: runner.os == 'Windows'
-      run: |
-        pyinstaller --onefile ppt66.py
 
     # -----------------------------
     # Mac APP 생성
