@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
@@ -22,14 +22,14 @@ jobs:
     - name: 라이브러리 설치
       run: |
         pip install pyinstaller
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -r requirements.txt
 
     - name: 빌드 실행
       run: |
         pyinstaller --onefile ppt66.py
 
     - name: 결과 업로드
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-${{ matrix.os }}
-        path: dist/
+        path: dist/*
