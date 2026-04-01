@@ -4,6 +4,7 @@ os
 json
 fitz
 re
+numpy
 copy
 tempfile
 urllib.request
