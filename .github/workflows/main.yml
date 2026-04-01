@@ -1,4 +1,4 @@
-name: Build EXE + MAC + LINUX
+name: Build EXE + MAC APP + DMG
 
 on: [push]
 
@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: 코드 가져오기
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Python 설치
       uses: actions/setup-python@v4
@@ -22,14 +22,49 @@ jobs:
     - name: 라이브러리 설치
       run: |
         pip install pyinstaller
-        pip install -r requirements.txt
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: 빌드 실행
+    # -----------------------------
+    # Windows EXE
+    # -----------------------------
+    - name: Windows EXE 빌드
+      if: runner.os == 'Windows'
       run: |
         pyinstaller --onefile ppt66.py
 
+    # -----------------------------
+    # Mac APP 생성
+    # -----------------------------
+    - name: Mac APP 빌드
+      if: runner.os == 'macOS'
+      run: |
+        pyinstaller --windowed --name ppt66 ppt66.py
+
+    # -----------------------------
+    # DMG 생성
+    # -----------------------------
+    - name: DMG 생성
+      if: runner.os == 'macOS'
+      run: |
+        hdiutil create -volname ppt66 \
+        -srcfolder dist/ppt66.app \
+        -ov -format UDZO ppt66.dmg
+
+    # -----------------------------
+    # Linux
+    # -----------------------------
+    - name: Linux 빌드
+      if: runner.os == 'Linux'
+      run: |
+        pyinstaller --onefile ppt66.py
+
+    # -----------------------------
+    # 결과 업로드
+    # -----------------------------
     - name: 결과 업로드
       uses: actions/upload-artifact@v4
       with:
         name: build-${{ matrix.os }}
-        path: dist/*
+        path: |
+          dist/*
+          *.dmg
