@@ -1,0 +1,14 @@
+{
+    "admin": {
+        "password": "74ef70833b778bfc4f943ad5f5e98997197979226b7b478262ae882a919b90f3",
+        "role": "Admin"
+    },
+    "sklee": {
+        "password": "b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342",
+        "role": "User"
+    },
+    "sklee74": {
+        "password": "74ef70833b778bfc4f943ad5f5e98997197979226b7b478262ae882a919b90f3",
+        "role": "Admin"
+    }
+}
