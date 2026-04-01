@@ -1,6 +1,5 @@
 sys
 cv2
-numpy as np
 os
 json
 fitz
